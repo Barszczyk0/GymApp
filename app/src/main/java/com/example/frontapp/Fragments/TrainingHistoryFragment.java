@@ -45,6 +45,7 @@ public class TrainingHistoryFragment extends Fragment {
 
         listViewTrainingHistory = view.findViewById(R.id.listViewTrainingHistory);
 
+        // Check if jwt token exists
         String token = requireActivity().getIntent().getStringExtra("TOKEN");
         if (token != null && !token.isEmpty()) {
             fetchTrainingHistory(token);
@@ -57,13 +58,14 @@ public class TrainingHistoryFragment extends Fragment {
     private void fetchTrainingHistory(String token) {
         new Thread(() -> {
             try {
+                // Build the URL
                 URL url = new URL("http://10.0.2.2:5000/api/training-history/list");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.setRequestProperty("Cookie", "access_token_cookie=" + token);
 
+                // Handle the response
                 int responseCode = connection.getResponseCode();
-
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                     StringBuilder responseBuilder = new StringBuilder();

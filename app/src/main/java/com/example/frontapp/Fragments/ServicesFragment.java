@@ -35,6 +35,7 @@ public class ServicesFragment extends Fragment {
         servicesContainer = view.findViewById(R.id.servicesContainer);
         String token = requireActivity().getIntent().getStringExtra("TOKEN");
 
+        // Check if jwt token exists
         if (token != null && !token.isEmpty()) {
             fetchServices(token);
         } else {
@@ -47,10 +48,12 @@ public class ServicesFragment extends Fragment {
     private void fetchServices(String token) {
         new Thread(() -> {
             try {
+                // Build the URL
                 URL url = new URL("http://10.0.2.2:5000/api/services/list");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
 
+                // Handle the response
                 int responseCode = connection.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));

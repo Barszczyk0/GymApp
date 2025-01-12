@@ -68,12 +68,14 @@ public class RegisterActivity extends AppCompatActivity {
     private void registerUser(String name, String surname, String email, String password) {
         new Thread(() -> {
             try {
+                // Build the URL
                 URL url = new URL("http://10.0.2.2:5000/api/auth/register");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setDoOutput(true);
 
+                // Create JSON data
                 JSONObject json = new JSONObject();
                 json.put("name", name);
                 json.put("surname", surname);
@@ -85,6 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
                 os.flush();
                 os.close();
 
+                // Handle the response
                 int responseCode = connection.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_CREATED) {
                     runOnUiThread(() -> {
@@ -96,7 +99,6 @@ public class RegisterActivity extends AppCompatActivity {
                 } else {
                     runOnUiThread(() -> Toast.makeText(RegisterActivity.this, "Registration failed", Toast.LENGTH_SHORT).show());
                 }
-
                 connection.disconnect();
             } catch (Exception e) {
                 e.printStackTrace();

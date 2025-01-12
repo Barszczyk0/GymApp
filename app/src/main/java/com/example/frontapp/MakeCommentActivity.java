@@ -13,6 +13,8 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.frontapp.Fragments.RatingFragment;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -92,8 +94,8 @@ public class MakeCommentActivity extends AppCompatActivity {
                 if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
                     runOnUiThread(() -> {
                         Toast.makeText(MakeCommentActivity.this, "Comment submitted successfully!", Toast.LENGTH_SHORT).show();
-                        finish(); // Close the activity
                     });
+                    finish();
                 } else {
                     Log.e("MakeCommentActivity", "Error: Response code " + responseCode);
                     runOnUiThread(() -> Toast.makeText(MakeCommentActivity.this, "You can only make 1 comment", Toast.LENGTH_SHORT).show());

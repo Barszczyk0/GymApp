@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
+        // Override default ActionBar
+        // Use ActionBar with added Logout button
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayShowCustomEnabled(true);
@@ -39,8 +41,7 @@ public class MainActivity extends AppCompatActivity {
             logoutButton.setOnClickListener(v -> handleLogout());
         }
 
-
-        // Load TrainersListFragment by default
+        // Load ServicesFragment by default
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragmentContainer, new ServicesFragment())
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
             Fragment selectedFragment = null;
             int itemId = item.getItemId();
 
+            // 4 different Submenus (fragments)
             if (itemId == R.id.menu_trainers_list) {
                 selectedFragment = new TrainersListFragment();
             } else if (itemId == R.id.menu_training_history) {

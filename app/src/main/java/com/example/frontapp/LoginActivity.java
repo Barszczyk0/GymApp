@@ -58,12 +58,14 @@ public class LoginActivity extends AppCompatActivity {
     private void loginUser(String email, String password) {
         new Thread(() -> {
             try {
+                // Build the URL
                 URL url = new URL("http://10.0.2.2:5000/api/auth/login");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setDoOutput(true);
 
+                // Create JSON data
                 JSONObject json = new JSONObject();
                 json.put("email", email);
                 json.put("password", password);
@@ -73,10 +75,12 @@ public class LoginActivity extends AppCompatActivity {
                 os.flush();
                 os.close();
 
+                // Handle the response
                 int responseCode = connection.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     List<String> cookies = connection.getHeaderFields().get("Set-Cookie");
 
+                    // Retrieve jwt token
                     String csrfToken = null;
                     if (cookies != null) {
                         for (String cookie : cookies) {
@@ -87,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
 
+                    // Retrieve csrf token
                     String token = null;
                     if (cookies != null) {
                         for (String cookie : cookies) {
@@ -105,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                         runOnUiThread(() -> {
                             Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
 
+                            // Pass jwt token and csrftoken to the MainActivity
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             intent.putExtra("TOKEN", finalToken);
                             intent.putExtra("X-CSRF-TOKEN", finalCsrfToken);
@@ -133,7 +139,6 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                     });
                 }
-
                 connection.disconnect();
             } catch (Exception e) {
                 e.printStackTrace();

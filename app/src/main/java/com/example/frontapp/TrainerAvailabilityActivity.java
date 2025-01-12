@@ -53,12 +53,14 @@ public class TrainerAvailabilityActivity extends AppCompatActivity {
     private void fetchAvailability(String token, String trainerId) {
         new Thread(() -> {
             try {
+                // Build the URL
                 String urlString = "http://10.0.2.2:5000/api/reservations/availability/" + trainerId;
                 URL url = new URL(urlString);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.setRequestProperty("Cookie", "access_token_cookie=" + token);
 
+                // Handle the response
                 int responseCode = connection.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -114,10 +116,12 @@ public class TrainerAvailabilityActivity extends AppCompatActivity {
                 // Button
                 Button actionButton = new Button(this);
                 actionButton.setMinWidth(450);
-                actionButton.setText(isBooked ? "Not available" : "Reserve");
+                actionButton.setText(isBooked ? "Not available" : "Reserve");   // Not available means booked by other users
                 actionButton.setEnabled(!isBooked && reservationId != null);
                 actionButton.setBackgroundColor(isBooked ? Color.rgb(27, 32, 33) : Color.rgb(48, 52, 63));
 
+                // If booked==1 and reservationId!=null then reservation was made by user making a request to backend
+                // reservationId is needed to cancel reservation
                 if (!reservationId.equals("null")) {
                     actionButton.setText("Cancel reservation");
                     actionButton.setBackgroundColor(Color.rgb(214, 40, 40));
@@ -155,6 +159,7 @@ public class TrainerAvailabilityActivity extends AppCompatActivity {
     }
 
     private void handleReserveClick(Button button, String startDate) {
+        // First click to mark an option, second click to confirm reservation
         if (button.getText().toString().equals("Reserve")) {
             button.setText("Confirm");
         } else {
@@ -177,6 +182,7 @@ public class TrainerAvailabilityActivity extends AppCompatActivity {
                     os.write(requestBody.toString().getBytes());
                     os.close();
 
+                    // Handle the response
                     int responseCode = connection.getResponseCode();
                     if (responseCode == HttpURLConnection.HTTP_CREATED) {
                         runOnUiThread(() -> {
@@ -196,6 +202,7 @@ public class TrainerAvailabilityActivity extends AppCompatActivity {
     }
 
     private void handleCancelClick(Button button, String reservationId) {
+        // First click to mark an option, second click to cancel reservation
         if (button.getText().toString().equals("Cancel reservation")) {
             button.setText("Confirm");
         } else {
@@ -214,7 +221,6 @@ public class TrainerAvailabilityActivity extends AppCompatActivity {
                             button.setText("Reserve");
                             button.setBackgroundColor(Color.rgb(48, 52, 63));
                             button.setEnabled(true);
-
                         });
                         finish();
                     } else {

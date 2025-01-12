@@ -45,6 +45,7 @@ public class TrainersListFragment extends Fragment {
         String csrfToken = requireActivity().getIntent().getStringExtra("X-CSRF-TOKEN");
         String token = requireActivity().getIntent().getStringExtra("TOKEN");
 
+        // Check if jwt token and csrftoken exists
         if (token != null && !token.isEmpty()) {
             fetchTrainersList(token);
         } else {
@@ -72,12 +73,14 @@ public class TrainersListFragment extends Fragment {
     private void fetchTrainersList(String token) {
         new Thread(() -> {
             try {
+                // Build the URL
                 String urlString = "http://10.0.2.2:5000/api/trainers/list";
                 URL url = new URL(urlString);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.setRequestProperty("Cookie", "access_token_cookie=" + token);
 
+                // Handle the response
                 int responseCode = connection.getResponseCode();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(
                         responseCode >= 200 && responseCode < 300
