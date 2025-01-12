@@ -50,7 +50,6 @@ public class RatingDetailActivity extends AppCompatActivity {
         }
 
         // Set up the button to navigate to MakeCommentActivity
-
         buttonMakeComment.setOnClickListener(v -> {
             Intent intent = new Intent(RatingDetailActivity.this, MakeCommentActivity.class);
             intent.putExtra("TRAINER_ID", trainerId);
