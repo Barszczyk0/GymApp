@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_services"
+        android:icon="@drawable/ic_services"
+        android:title="Services" />
+
+    <item
+        android:id="@+id/menu_trainers_list"
+        android:icon="@drawable/ic_trainers"
+        android:title="Trainers" />
+
+    <item
+        android:id="@+id/menu_training_history"
+        android:icon="@drawable/ic_training_history"
+        android:title="Training History" />
+
+    <item
+        android:id="@+id/menu_rating"
+        android:icon="@drawable/ic_rating"
+        android:title="Rating"/>
+
+</menu>

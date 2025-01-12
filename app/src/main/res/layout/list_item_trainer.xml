@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:textColor="@color/on_background_color"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textNameSurname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="Name Surname"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/on_background_color"/>
+
+    <TextView
+        android:id="@+id/textNumRatings"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="end"
+        android:text="Number of Ratings"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/on_background_color"/>
+</LinearLayout>

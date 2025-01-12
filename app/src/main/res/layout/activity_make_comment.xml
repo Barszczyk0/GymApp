@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rate this Trainer:"
+        android:textSize="18sp"
+        android:textColor="@color/on_primary_color"
+        android:paddingBottom="8dp" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="10"
+        android:stepSize="1.0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Comment:"
+        android:textColor="@color/on_primary_color"
+        android:textSize="18sp"
+        android:paddingTop="16dp" />
+
+    <EditText
+        android:id="@+id/editTextComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Write your comment here"
+        android:textColorHint="@color/on_background_color"
+        android:textColor="@color/on_background_color"
+        android:lines="3"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:paddingTop="8dp" />
+
+    <Button
+        android:id="@+id/buttonSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/on_primary_color"
+        android:text="Submit"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
